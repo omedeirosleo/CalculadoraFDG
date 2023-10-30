@@ -115,13 +115,16 @@
         <input type="number" id="dose-inicial" step="0.01">
         <br>
         <label for="perda-inicial">Perda Inicial (%):</label>
-        <input type="number" id="perda-inicial" step="0.01" value="0">
+        <input type="number" id="perda-inicial" step="0.01" value="4">
         <br>
+	<label for="atraso-minutos">Quantos minutos atrasou:</label>
+	<input type="number" id="atraso-minutos" step="0.01" value="0">
+	<br>
         <label for="intervalo-minutos">Intervalo entre injeções (minutos):</label>
-        <input type="number" id="intervalo-minutos">
+        <input type="number" id="intervalo-minutos" step="0.01" value="0">
         <br>
         <label for="quantidade-intervalos">Quantidade de Pacientes (intervalos):</label>
-        <input type="number" id="quantidade-intervalos" value="10">
+        <input type="number" id="quantidade-intervalos" value="5">
         <br>
         <button onclick="calcularDoses()">Calcular</button>
         <p>Resultados dos Intervalos:</p>
@@ -172,8 +175,8 @@
 	    <span> </span>
 	    <span> </span>
 	    <span> </span>
-    <p>
-        <div class="container">
+    	<p>
+	<div class="container">
             <h3>Dosimetria</h3>
             <div id="dosimetria-resultados"></div>
             <button onclick="obterDadosDosimetria()">Obter Dados</button>
@@ -202,40 +205,40 @@
         </div>
         <script>
             function calcularDoses() {
-                const doseInicial = parseFloat(document.getElementById('dose-inicial').value);
-                const perdaInicial = parseFloat(document.getElementById('perda-inicial').value);
-                const intervaloMinutos = parseFloat(document.getElementById('intervalo-minutos').value);
-                let quantidadeIntervalos = parseInt(document.getElementById('quantidade-intervalos').value);
+    const doseInicial = parseFloat(document.getElementById('dose-inicial').value);
+    const perdaInicial = parseFloat(document.getElementById('perda-inicial').value);
+    const intervaloMinutos = parseFloat(document.getElementById('intervalo-minutos').value);
+    let quantidadeIntervalos = parseInt(document.getElementById('quantidade-intervalos').value);
+    const atrasoMinutos = parseFloat(document.getElementById('atraso-minutos').value);
 
-                if (isNaN(doseInicial) || isNaN(perdaInicial) || isNaN(intervaloMinutos) || isNaN(quantidadeIntervalos)) {
-                    alert("Por favor, preencha todos os campos com valores numéricos.");
-                    return;
-                }
+    if (isNaN(doseInicial) || isNaN(perdaInicial) || isNaN(intervaloMinutos) || isNaN(quantidadeIntervalos) || isNaN(atrasoMinutos)) {
+        alert("Por favor, preencha todos os campos com valores numéricos.");
+        return;
+    }
 
-                const meiaVida = 109.77; // minutos
-                let horarioChegada = 0;
-                const resultadosIntervalos = [];
+    const meiaVida = 109.77; // minutos
+    let horarioChegada = atrasoMinutos; // Levar em consideração o atraso
+    const resultadosIntervalos = [];
 
-                for (let i = 0; i < quantidadeIntervalos + 1; i++) {
-                    const perdaTotal = (1 - perdaInicial / 100) * 0.5 ** (horarioChegada / meiaVida);
-                    const doseAposDecaimento = doseInicial * perdaTotal;
+    for (let i = 0; i < quantidadeIntervalos + 1; i++) {
+        // Calcular o decaimento sem levar em consideração o atraso
+        const perdaTotal = (1 - perdaInicial / 100) * 0.5 ** (horarioChegada / meiaVida);
+        const doseAposDecaimento = doseInicial * perdaTotal;
 
-                    // Determine o rótulo do intervalo
-                    let rotuloIntervalo = "";
+        // Determine o rótulo do intervalo (incluindo o atraso)
+        let rotuloIntervalo = "";
+        if (i === 0) {
+            rotuloIntervalo = "Dose Esperada";
+        } else {
+            rotuloIntervalo = `Após ${horarioChegada - atrasoMinutos} minutos (Atraso: ${atrasoMinutos} minutos)`;
+        }
 
-                    // Adicione o rótulo "Dose Esperada" no primeiro intervalo
-                    if (i === 0) {
-                        rotuloIntervalo = "Dose Esperada";
-                    } else {
-                        rotuloIntervalo = `Após ${horarioChegada} minutos`;
-                    }
+        resultadosIntervalos.push(`<li>${rotuloIntervalo}: ${doseAposDecaimento.toFixed(2)} mCi</li`);
+        horarioChegada += intervaloMinutos;
+    }
 
-                    resultadosIntervalos.push(`<li>${rotuloIntervalo}: ${doseAposDecaimento.toFixed(2)} mCi</li>`);
-                    horarioChegada += intervaloMinutos;
-                }
-
-                document.getElementById('resultados-intervalos').innerHTML = resultadosIntervalos.join("");
-            }
+    document.getElementById('resultados-intervalos').innerHTML = resultadosIntervalos.join("");
+}
 
             function adicionarDadosPaciente() {
                 const identificador = document.getElementById('identificador-paciente').value;
