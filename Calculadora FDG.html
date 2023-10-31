@@ -103,11 +103,12 @@
 .dosimetria-tabela th {
     background-color: #e0e0e0;
 }
+
     </style>
 </head>
 <body>
-<img class="imagem-direita" src="https://cdn-icons-png.flaticon.com/512/25/25119.png" alt="Imagem Direita">    
-<img class="imagem-esquerda" src="https://abificc.org.br/wp-content/uploads/2019/08/marca-liga-contra-o-ca%CC%82ncer-1024x740.png" alt="Imagem Esquerda">
+    <img class="imagem-direita" src="https://cdn-icons-png.flaticon.com/512/25/25119.png" alt="Imagem Direita">
+    <img class="imagem-esquerda" src="https://abificc.org.br/wp-content/uploads/2019/08/marca-liga-contra-o-ca%CC%82ncer-1024x740.png" alt="Imagem Esquerda">
 
     <div class="container">
         <h1>Calculadora de Decaimento para FDG-Flúor 18</h1>
@@ -117,11 +118,11 @@
         <label for="perda-inicial">Perda Inicial (%):</label>
         <input type="number" id="perda-inicial" step="0.01" value="4">
         <br>
-	<label for="atraso-minutos">Quantos minutos atrasou:</label>
-	<input type="number" id="atraso-minutos" step="0.01" value="0">
-	<br>
+        <label for="atraso-minutos">Quantos minutos atrasou:</label>
+        <input type="number" id="atraso-minutos" step="0.01" value="0">
+        <br>
         <label for="intervalo-minutos">Intervalo entre injeções (minutos):</label>
-        <input type="number" id="intervalo-minutos" step="0.01" value="18">
+        <input type="number" id="intervalo-minutos" value="18">
         <br>
         <label for="quantidade-intervalos">Quantidade de Pacientes (intervalos):</label>
         <input type="number" id="quantidade-intervalos" value="5">
@@ -130,258 +131,270 @@
         <p>Resultados dos Intervalos:</p>
         <ul id="resultados-intervalos"></ul>
     </div>
-        <p>
-	    <span> </span>
-	    <span> </span>
-	    <span> </span>
-	<p>
-    <!-- Seção para Dados do Paciente -->
-    <div class="container">
-        <h1>Dados dos Pacientes</h1>
-        <label for="identificador-paciente">Identificador do Paciente:</label>
-        <input type="text" id="identificador-paciente">
-        <br>
-        <label for="peso-paciente-kg">Peso do Paciente (Kg):</label>
-        <input type="number" id="peso-paciente-kg">
-        <br>
-        <button onclick="adicionarDadosPaciente()">Adicionar Paciente</button>
-        <h2>Dados dos Pacientes</h2>
-        <table id="tabela-pacientes" style="margin: 0 auto; width: 100%;">
-            <thead>
-                <tr>
-                    <th>Identificador</th>
-                    <th>Peso (Kg)</th>
-                    <th>Dose Mínima (mCi)</th>
-                    <th>Dose Ideal (mCi)</th>
-                    <th>Dose Máxima (mCi)</th>
-                </tr>
-            </thead>
-            <tbody id="tabela-corpo">
-            </tbody>
-        </table>
-        <table id="soma-tabela" style="margin: 0 auto; width: 100%;">
-            <tfoot>
-                <tr>
-                    <td>Soma</td>
-                    <td id="soma-peso"></td>
-                    <td id="soma-dose-minima"></td>
-                    <td id="soma-dose-ideal"></td>
-                    <td id="soma-dose-maxima"></td>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
-	<p>
-	    <span> </span>
-	    <span> </span>
-	    <span> </span>
-    	<p>
-	<div class="container">
-            <h3>Dosimetria</h3>
-            <div id="dosimetria-resultados"></div>
-            <button onclick="obterDadosDosimetria()">Obter Dados</button>
-            <h3>Tabela</h3>
-            <div id="dosimetria-resultados">
-                <table id="tabela-dosimetria" class="dosimetria-tabela">
-                    <!-- Cabeçalho da tabela -->
-                    <!-- Cabeçalho da tabela -->
-                    <thead>
-                        <tr>
-                            <th>Decaimento em mCi</th>
-                            <th>Tempo de Decaimento (minutos)</th>
-                            <th>Dose Resultante (mCi)</th>
-                            <th>Subtração</th>
-                        </tr>
-                    </thead>
-                    <!-- Corpo da tabela -->
-                    <tbody id="tabela-dosimetria-corpo">
-                    </tbody>
-                </table>
-            </div>
-            <button onclick="calcularDecaimento()">Inserir Paciente/Linha</button>
-            <label for="valor-y">Dose do Próximo Paciente:</label>
-            <input type="number" id="valor-y" step="0.01">
-            <button onclick="atualizarTabela()">Calcular Decaimento</button>
+    <p>
+        <span> </span>
+        <span> </span>
+        <span> </span>
+    <p>
+        <!-- Seção para Dados do Paciente -->
+        <div class="container">
+            <h1>Dados dos Pacientes</h1>
+            <label for="identificador-paciente">Identificador do Paciente:</label>
+            <input type="text" id="identificador-paciente">
+            <br>
+            <label for="peso-paciente-kg">Peso do Paciente (Kg):</label>
+            <input type="number" id="peso-paciente-kg">
+            <br>
+            <button onclick="adicionarDadosPaciente()">Adicionar Paciente</button>
+            <h3>Ao adicionar os dados dos pacientes, eles aparecerão nessa tabela, você não pode alterar o peso deles depois de adicionar.</h3>
+            <table id="tabela-pacientes" style="margin: 0 auto; width: 100%;">
+                <thead>
+                    <tr>
+                        <th>Identificador</th>
+                        <th>Peso (Kg)</th>
+                        <th>Dose Mínima (mCi)</th>
+                        <th>Dose Ideal (mCi)</th>
+                        <th>Dose Máxima (mCi)</th>
+                    </tr>
+                </thead>
+                <tbody id="tabela-corpo">
+                </tbody>
+            </table>
+            <table id="soma-tabela" style="margin: 0 auto; width: 100%;">
+                <tfoot>
+                    <tr>
+                        <td>Soma</td>
+                        <td id="soma-peso"></td>
+                        <td id="soma-dose-minima"></td>
+                        <td id="soma-dose-ideal"></td>
+                        <td id="soma-dose-maxima"></td>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
+    <p>
+        <span> </span>
+        <span> </span>
+        <span> </span>
+    <p>
+        <div class="container">
+            <h3>Dosimetria</h3>
+            <h5>O paciente mais pesado aparecerá abaixo, para começar clique em Obter dados, ao injetar selecione o quadrado vermelho ao lado do paciente, após isso, insira o valor restante de FDG informado na tabela abaixo, clicando em inserir paciente, e digite o valor que será injetado no próximo paciente que irá realizar o exame, com os valores preenchidos, clique em calcular decaimento.</h5>
+            <p>
+                <h5>Para pacientes posteriores, clique em inserir paciente, em disponível - coloque o valor da subtração resultante do paiente superior ao adicionado, insira o valor da dose do próximo paciente e clique em calcular decaimento.</h5>
+                <div id="dosimetria-resultados"></div>
+                <button onclick="obterDadosDosimetria()">Obter Dados</button>
+                <h3>Tabela</h3>
+                <div id="dosimetria-resultados">
+                    <table id="tabela-dosimetria" class="dosimetria-tabela">
+                        <!-- Cabeçalho da tabela -->
+                        <thead>
+                            <tr>
+                                <th>Disponível (mCi)</th>
+                                <th>Tempo de Decaimento (minutos)</th>
+                                <th>Dose Resultante (mCi)</th>
+                                <th>Subtração</th>
+                            </tr>
+                        </thead>
+                        <!-- Corpo da tabela -->
+                        <tbody id="tabela-dosimetria-corpo">
+                        </tbody>
+                    </table>
+                </div>
+                <button onclick="DosePrimeiro()">Dose Disponível para 1°</button>
+                <button onclick="calcularDecaimento()">Inserir Paciente/Linha</button>
+                <label for="valor-y">Dose do Próximo Paciente:</label>
+                <input type="number" id="valor-y" step="0.01">
+                <button onclick="atualizarTabela()">Calcular Decaimento</button>
+</div>
+    <p>
+        <span> </span>
+        <span> </span>
+        <span> </span>
+    <p>
         <script>
-            function calcularDoses() {
-    const doseInicial = parseFloat(document.getElementById('dose-inicial').value);
-    const perdaInicial = parseFloat(document.getElementById('perda-inicial').value);
-    const intervaloMinutos = parseFloat(document.getElementById('intervalo-minutos').value);
-    let quantidadeIntervalos = parseInt(document.getElementById('quantidade-intervalos').value);
-    const atrasoMinutos = parseFloat(document.getElementById('atraso-minutos').value);
+                function calcularDoses() {
+                    const doseInicial = parseFloat(document.getElementById('dose-inicial').value);
+                    const perdaInicial = parseFloat(document.getElementById('perda-inicial').value);
+                    const intervaloMinutos = parseFloat(document.getElementById('intervalo-minutos').value);
+                    let quantidadeIntervalos = parseInt(document.getElementById('quantidade-intervalos').value);
+                    const atrasoMinutos = parseFloat(document.getElementById('atraso-minutos').value);
 
-    if (isNaN(doseInicial) || isNaN(perdaInicial) || isNaN(intervaloMinutos) || isNaN(quantidadeIntervalos) || isNaN(atrasoMinutos)) {
-        alert("Por favor, preencha todos os campos com valores numéricos.");
-        return;
-    }
+                    if (isNaN(doseInicial) || isNaN(perdaInicial) || isNaN(intervaloMinutos) || isNaN(quantidadeIntervalos) || isNaN(atrasoMinutos)) {
+                        alert("Por favor, preencha todos os campos com valores numéricos.");
+                        return;
+                    }
 
-    const meiaVida = 109.77; // minutos
-    let horarioChegada = atrasoMinutos; // Levar em consideração o atraso
-    const resultadosIntervalos = [];
+                    const meiaVida = 109.77; // minutos
+                    let horarioChegada = atrasoMinutos; // Levar em consideração o atraso
+                    const resultadosIntervalos = [];
 
-    for (let i = 0; i < quantidadeIntervalos + 1; i++) {
-        // Calcular o decaimento sem levar em consideração o atraso
-        const perdaTotal = (1 - perdaInicial / 100) * 0.5 ** (horarioChegada / meiaVida);
-        const doseAposDecaimento = doseInicial * perdaTotal;
+                    for (let i = 0; i < quantidadeIntervalos + 1; i++) {
+                        // Calcular o decaimento considerando o atraso
+                        const perdaTotal = (1 - perdaInicial / 100) * 0.5 ** (horarioChegada / meiaVida);
+                        const doseAposDecaimento = doseInicial * perdaTotal;
 
-        // Determine o rótulo do intervalo (incluindo o atraso)
-        let rotuloIntervalo = "";
-        if (i === 0) {
-            rotuloIntervalo = "Dose Esperada";
-        } else {
-            rotuloIntervalo = `Após ${horarioChegada - atrasoMinutos} minutos (Atraso: ${atrasoMinutos} minutos)`;
-        }
-
-        resultadosIntervalos.push(`<li>${rotuloIntervalo}: ${doseAposDecaimento.toFixed(2)} mCi</li`);
-        horarioChegada += intervaloMinutos;
-    }
-
-    document.getElementById('resultados-intervalos').innerHTML = resultadosIntervalos.join("");
-}
-
-            function adicionarDadosPaciente() {
-                const identificador = document.getElementById('identificador-paciente').value;
-                const tabelaCorpo = document.getElementById('tabela-corpo');
-
-                // Verifica se o identificador já existe na tabela
-                const identificadoresExistentes = Array.from(tabelaCorpo.rows).map(row => row.cells[0].textContent);
-
-                if (identificadoresExistentes.includes(identificador)) {
-                    alert("Identificador já existe na tabela. Escolha um identificador único.");
-                    return;
-                }
-
-                const peso = parseFloat(document.getElementById('peso-paciente-kg').value);
-
-                if (identificador && !isNaN(peso)) {
-                    const novaLinha = tabelaCorpo.insertRow();
-                    const celulaIdentificador = novaLinha.insertCell(0);
-                    const celulaPeso = novaLinha.insertCell(1);
-                    const celulaDoseMinima = novaLinha.insertCell(2);
-                    const celulaDoseIdeal = novaLinha.insertCell(3);
-                    const celulaDoseMaxima = novaLinha.insertCell(4);
-
-                    celulaIdentificador.innerHTML = identificador;
-                    celulaPeso.innerHTML = `<input type="number" value="${peso}" onchange="atualizarPeso(this)">`;
-                    celulaDoseMinima.innerHTML = (peso * 0.08).toFixed(2);
-                    celulaDoseIdeal.innerHTML = (peso * 0.12).toFixed(2);
-                    celulaDoseMaxima.innerHTML = (peso * 0.14).toFixed(2);
-
-                    document.getElementById('identificador-paciente').value = "";
-                    document.getElementById('peso-paciente-kg').value = "";
-
-                    atualizarSomaPacientes();
-                }
-            }
-
-            function atualizarPeso(input) {
-                const celula = input.parentElement; // A célula que contém o input
-                const linha = celula.parentElement; // A linha que contém a célula
-                const novoPeso = parseFloat(input.value);
-
-                if (!isNaN(novoPeso)) {
-                    linha.cells[1].textContent = novoPeso.toFixed(2); // Atualiza o peso na tabela
-                    linha.cells[2].textContent = (novoPeso * 0.08).toFixed(2); // Atualiza a dose mínima
-                    linha.cells[3].textContent = (novoPeso * 0.12).toFixed(2); // Atualiza a dose ideal
-                    linha.cells[4].textContent = (novoPeso * 0.14).toFixed(2); // Atualiza a dose máxima
-                    atualizarSomaPacientes();
-                }
-            }
-
-            function atualizarSomaPacientes() {
-                const tabelaCorpo = document.getElementById('tabela-corpo');
-                let somaPeso = 0;
-                let somaDoseMinima = 0;
-                let somaDoseIdeal = 0;
-                let somaDoseMaxima = 0;
-
-                for (let i = 0; i < tabelaCorpo.rows.length; i++) {
-                    const celulaPeso = parseFloat(tabelaCorpo.rows[i].cells[1].innerHTML);
-                    const celulaDoseMinima = parseFloat(tabelaCorpo.rows[i].cells[2].innerHTML);
-                    const celulaDoseIdeal = parseFloat(tabelaCorpo.rows[i].cells[3].innerHTML);
-                    const celulaDoseMaxima = parseFloat(tabelaCorpo.rows[i].cells[4].innerHTML);
-
-                    somaPeso += celulaPeso;
-                    somaDoseMinima += celulaDoseMinima;
-                    somaDoseIdeal += celulaDoseIdeal;
-                    somaDoseMaxima += celulaDoseMaxima;
-                }
-
-                document.getElementById('soma-peso').innerHTML = somaPeso.toFixed(2);
-                document.getElementById('soma-dose-minima').innerHTML = somaDoseMinima.toFixed(2);
-                document.getElementById('soma-dose-ideal').innerHTML = somaDoseIdeal.toFixed(2);
-                document.getElementById('soma-dose-maxima').innerHTML = somaDoseMaxima.toFixed(2);
-            }
-            function obterDadosDosimetria() {
-                const tabelaCorpo = document.getElementById('tabela-corpo');
-                const dadosDosimetria = [];
-
-                for (let i = 0; i < tabelaCorpo.rows.length; i++) {
-                    const identificador = tabelaCorpo.rows[i].cells[0].innerHTML;
-                    const doseIdeal = parseFloat(tabelaCorpo.rows[i].cells[3].innerHTML);
-
-                    dadosDosimetria.push({ identificador, doseIdeal });
-                }
-
-                dadosDosimetria.sort((a, b) => b.doseIdeal - a.doseIdeal);
-
-                exibirDadosDosimetria(dadosDosimetria);
-            }
-
-            function exibirDadosDosimetria(dados) {
-                const dosimetriaResultados = document.getElementById('dosimetria-resultados');
-                dosimetriaResultados.innerHTML = ''; // Limpa qualquer conteúdo anterior
-
-                // Obtenha o valor da Dose Esperada (primeiro intervalo)
-                const doseEsperada = parseFloat(document.getElementById('resultados-intervalos').querySelector('li').textContent.split(":")[1]);
-
-                for (const paciente of dados) {
-                    const li = document.createElement('li');
-                    li.textContent = `${paciente.identificador}: ${paciente.doseIdeal.toFixed(2)}`;
-
-                    // Calcule a diferença entre a dose ideal do paciente e a Dose Esperada
-                    const diferenca = (doseEsperada - paciente.doseIdeal).toFixed(2);
-
-                    // Crie um <small> para exibir a diferença
-                    const smallDiferenca = document.createElement('small');
-                    smallDiferenca.textContent = ` (${diferenca} mCi restaram após esse paciente)`;
-
-                    // Adicione o <small> à <li>
-                    li.appendChild(smallDiferenca);
-
-                    dosimetriaResultados.appendChild(li);
-                    // Crie um <div> para conter o checkbox
-                    const checkboxDiv = document.createElement('div');
-                    checkboxDiv.className = 'checkbox';
-
-                    // Crie o checkbox como um <input> do tipo checkbox
-                    const checkbox = document.createElement('input');
-                    checkbox.type = 'checkbox';
-                    checkbox.addEventListener('change', () => {
-                        // Altere a cor de fundo da <div> com base no estado do checkbox
-                        if (checkbox.checked) {
-                            checkboxDiv.style.backgroundColor = 'green';
+                        // Determine o rótulo do intervalo (excluindo o atraso)
+                        let rotuloIntervalo = "";
+                        if (i === 0) {
+                            rotuloIntervalo = "Dose Esperada";
                         } else {
-                            checkboxDiv.style.backgroundColor = 'red';
+                            rotuloIntervalo = `Após ${horarioChegada - atrasoMinutos} minutos`;
                         }
-                    });
 
-                    // Adicione o checkbox à <div>
-                    checkboxDiv.appendChild(checkbox);
+                        resultadosIntervalos.push(`<li>${rotuloIntervalo}: ${doseAposDecaimento.toFixed(2)} mCi</li>`);
+                        horarioChegada += intervaloMinutos;
+                    }
 
-                    // Adicione a <div> com o checkbox ao <li>
-                    li.appendChild(checkboxDiv);
+                    document.getElementById('resultados-intervalos').innerHTML = resultadosIntervalos.join("");
                 }
+
+
+                function adicionarDadosPaciente() {
+                    const identificador = document.getElementById('identificador-paciente').value;
+                    const tabelaCorpo = document.getElementById('tabela-corpo');
+                    const peso = parseFloat(document.getElementById('peso-paciente-kg').value);
+
+                    if (identificador && !isNaN(peso)) {
+                        let valorIdealMultiplicador = 0;
+
+                        if (peso <= 60) {
+                            valorIdealMultiplicador = 0.10;
+                        } else if (peso >= 60.01 && peso <= 80) {
+                            valorIdealMultiplicador = 0.11;
+                        } else if (peso >= 80.01 && peso <= 100) {
+                            valorIdealMultiplicador = 0.12;
+                        } else {
+                            valorIdealMultiplicador = 0.13;
+                        }
+
+                        const novaLinha = tabelaCorpo.insertRow();
+                        const celulaIdentificador = novaLinha.insertCell(0);
+                        const celulaPeso = novaLinha.insertCell(1);
+                        const celulaDoseMinima = novaLinha.insertCell(2);
+                        const celulaDoseIdeal = novaLinha.insertCell(3);
+                        const celulaDoseMaxima = novaLinha.insertCell(4);
+
+                        celulaIdentificador.innerHTML = identificador;
+                        celulaPeso.innerHTML = (peso).toFixed(2);
+                        celulaDoseMinima.innerHTML = (peso * 0.08).toFixed(2);
+                        celulaDoseIdeal.innerHTML = (peso * valorIdealMultiplicador).toFixed(2); // Cálculo com base no valorIdealMultiplicador
+                        celulaDoseMaxima.innerHTML = (peso * 0.14).toFixed(2);
+
+                        document.getElementById('identificador-paciente').value = "";
+                        document.getElementById('peso-paciente-kg').value = "";
+
+                        atualizarSomaPacientes();
+                    }
+                }
+
+
+                function atualizarPeso(input) {
+                    const celula = input.parentElement; // A célula que contém o input
+                    const linha = celula.parentElement; // A linha que contém a célula
+                    const novoPeso = parseFloat(input.value);
+
+                    if (!isNaN(novoPeso)) {
+                        linha.cells[1].textContent = novoPeso.toFixed(2); // Atualiza o peso na tabela
+                        linha.cells[2].textContent = (novoPeso * 0.08).toFixed(2); // Atualiza a dose mínima
+                        linha.cells[3].textContent = (novoPeso * 0.12).toFixed(2); // Atualiza a dose ideal
+                        linha.cells[4].textContent = (novoPeso * 0.14).toFixed(2); // Atualiza a dose máxima
+                        atualizarSomaPacientes();
+                    }
+                }
+
+                function atualizarSomaPacientes() {
+                    const tabelaCorpo = document.getElementById('tabela-corpo');
+                    let somaPeso = 0;
+                    let somaDoseMinima = 0;
+                    let somaDoseIdeal = 0;
+                    let somaDoseMaxima = 0;
+
+                    for (let i = 0; i < tabelaCorpo.rows.length; i++) {
+                        const celulaPeso = parseFloat(tabelaCorpo.rows[i].cells[1].innerHTML);
+                        const celulaDoseMinima = parseFloat(tabelaCorpo.rows[i].cells[2].innerHTML);
+                        const celulaDoseIdeal = parseFloat(tabelaCorpo.rows[i].cells[3].innerHTML);
+                        const celulaDoseMaxima = parseFloat(tabelaCorpo.rows[i].cells[4].innerHTML);
+
+                        somaPeso += celulaPeso;
+                        somaDoseMinima += celulaDoseMinima;
+                        somaDoseIdeal += celulaDoseIdeal;
+                        somaDoseMaxima += celulaDoseMaxima;
+                    }
+
+                    document.getElementById('soma-peso').innerHTML = somaPeso.toFixed(2);
+                    document.getElementById('soma-dose-minima').innerHTML = somaDoseMinima.toFixed(2);
+                    document.getElementById('soma-dose-ideal').innerHTML = somaDoseIdeal.toFixed(2);
+                    document.getElementById('soma-dose-maxima').innerHTML = somaDoseMaxima.toFixed(2);
+                }
+                function obterDadosDosimetria() {
+                    const tabelaCorpo = document.getElementById('tabela-corpo');
+                    const dadosDosimetria = [];
+
+                    for (let i = 0; i < tabelaCorpo.rows.length; i++) {
+                        const identificador = tabelaCorpo.rows[i].cells[0].innerHTML;
+                        const doseIdeal = parseFloat(tabelaCorpo.rows[i].cells[3].innerHTML);
+
+                        dadosDosimetria.push({ identificador, doseIdeal });
+                    }
+
+                    dadosDosimetria.sort((a, b) => b.doseIdeal - a.doseIdeal);
+
+                    exibirDadosDosimetria(dadosDosimetria);
+                }
+
+                function exibirDadosDosimetria(dados) {
+                    const dosimetriaResultados = document.getElementById('dosimetria-resultados');
+                    dosimetriaResultados.innerHTML = ''; // Limpa qualquer conteúdo anterior
+
+                    // Obtenha o valor da Dose Esperada (primeiro intervalo)
+                    const doseEsperada = parseFloat(document.getElementById('resultados-intervalos').querySelector('li').textContent.split(":")[1]);
+
+                    for (const paciente of dados) {
+                        const li = document.createElement('li');
+                        li.textContent = `${paciente.identificador}: ${paciente.doseIdeal.toFixed(2)}`;
+
+                        // Calcule a diferença entre a dose ideal do paciente e a Dose Esperada
+                        const diferenca = (doseEsperada - paciente.doseIdeal).toFixed(2);
+
+                        // Crie um <small> para exibir a diferença
+                        const smallDiferenca = document.createElement('small');
+                        smallDiferenca.textContent = ` (${diferenca} mCi restaram após esse paciente)`;
+
+                        // Adicione o <small> à <li>
+                        li.appendChild(smallDiferenca);
+
+                        dosimetriaResultados.appendChild(li);
+                        // Crie um <div> para conter o checkbox
+                        const checkboxDiv = document.createElement('div');
+                        checkboxDiv.className = 'checkbox';
+
+                        // Crie o checkbox como um <input> do tipo checkbox
+                        const checkbox = document.createElement('input');
+                        checkbox.type = 'checkbox';
+                        checkbox.addEventListener('change', () => {
+                            // Altere a cor de fundo da <div> com base no estado do checkbox
+                            if (checkbox.checked) {
+                                checkboxDiv.style.backgroundColor = 'green';
+                            } else {
+                                checkboxDiv.style.backgroundColor = 'red';
+                            }
+                        });
+
+                        // Adicione o checkbox à <div>
+                        checkboxDiv.appendChild(checkbox);
+
+                        // Adicione a <div> com o checkbox ao <li>
+                        li.appendChild(checkboxDiv);
+                    }
             }
-            function calcularDecaimento() {
+            function DosePrimeiro() {
                 const tabelaDosimetria = document.getElementById('tabela-dosimetria');
                 const tabelaCorpo = document.getElementById('tabela-dosimetria-corpo');
-                const quantidadeIntervalos = parseInt(document.getElementById('quantidade-intervalos').value);
+                const quantidadeIntervalos = '1';
                 const intervaloMinutos = parseFloat(document.getElementById('intervalo-minutos').value);
-
-
-
+                const doseInicial = parseFloat(document.getElementById('dose-inicial').value);
+                const doseEsperada = parseFloat(document.getElementById('resultados-intervalos').querySelector('li').textContent.split(":")[1]);
 
                 for (let i = 0; i < quantidadeIntervalos; i++) {
                     const novaLinha = tabelaCorpo.insertRow();
@@ -390,79 +403,101 @@
                     const celulaDoseResultante = novaLinha.insertCell(2);
                     const celulaSubtracao = novaLinha.insertCell(3);
 
-                    // Define a primeira coluna como editável
-                    const inputDecaimento = document.createElement("input");
-                    inputDecaimento.type = "number";
-                    inputDecaimento.min = "0";
-                    inputDecaimento.step = "0.01";
-                    celulaDecaimento.appendChild(inputDecaimento);
-
-                    celulaIntervalo.textContent = intervaloMinutos.toFixed(2);
-
                     // Preenche a terceira coluna com o resultado do cálculo
-                    const doseAposDecaimento = calcularDoseAposDecaimento(inputDecaimento);
-                    celulaDoseResultante.textContent = doseAposDecaimento.toFixed(2);
+                    celulaDecaimento.textContent = doseInicial.toFixed(2);
+                    celulaIntervalo.textContent = intervaloMinutos.toFixed(2);
+                    celulaDoseResultante.textContent = doseEsperada.toFixed(2);
+
                 }
             }
+                function calcularDecaimento() {
+                    const tabelaDosimetria = document.getElementById('tabela-dosimetria');
+                    const tabelaCorpo = document.getElementById('tabela-dosimetria-corpo');
+                    const quantidadeIntervalos = parseInt(document.getElementById('quantidade-intervalos').value);
+                    const intervaloMinutos = parseFloat(document.getElementById('intervalo-minutos').value);
 
-            function calcularDoseAposDecaimento(inputDecaimento) {
-                const tabelaDosimetria = document.getElementById('tabela-dosimetria');
-                const tabelaCorpo = document.getElementById('tabela-dosimetria-corpo');
-                const quantidadeIntervalos = tabelaCorpo.rows.length;
 
-                for (let i = 0; i < quantidadeIntervalos; i++) {
-                    const celulaDecaimento = tabelaCorpo.rows[i].cells[0];
-                    const celulaDoseResultante = tabelaCorpo.rows[i].cells[2];
-                    const celulaSubtracao = tabelaCorpo.rows[i].cells[3];
 
-                    const inputDecaimento = celulaDecaimento.querySelector("input");
 
-                    if (inputDecaimento) {
+                    for (let i = 0; i < quantidadeIntervalos; i++) {
+                        const novaLinha = tabelaCorpo.insertRow();
+                        const celulaDecaimento = novaLinha.insertCell(0);
+                        const celulaIntervalo = novaLinha.insertCell(1);
+                        const celulaDoseResultante = novaLinha.insertCell(2);
+                        const celulaSubtracao = novaLinha.insertCell(3);
+
+                        // Define a primeira coluna como editável
+                        const inputDecaimento = document.createElement("input");
+                        inputDecaimento.type = "number";
+                        inputDecaimento.min = "0";
+                        inputDecaimento.step = "0.01";
+                        celulaDecaimento.appendChild(inputDecaimento);
+
+                        celulaIntervalo.textContent = intervaloMinutos.toFixed(2);
+
+                        // Preenche a terceira coluna com o resultado do cálculo
                         const doseAposDecaimento = calcularDoseAposDecaimento(inputDecaimento);
                         celulaDoseResultante.textContent = doseAposDecaimento.toFixed(2);
                     }
                 }
-            }
 
-            function atualizarTabela() {
-                const tabelaCorpo = document.getElementById('tabela-dosimetria-corpo');
-                const quantidadeIntervalos = tabelaCorpo.rows.length;
-                const meiaVida = 109.77; // minutos
+                function calcularDoseAposDecaimento(inputDecaimento) {
+                    const tabelaDosimetria = document.getElementById('tabela-dosimetria');
+                    const tabelaCorpo = document.getElementById('tabela-dosimetria-corpo');
+                    const quantidadeIntervalos = tabelaCorpo.rows.length;
 
-                // Obtenha o valor de 'y' inserido pelo usuário
-                const valorY = parseFloat(document.getElementById('valor-y').value);
+                    for (let i = 0; i < quantidadeIntervalos; i++) {
+                        const celulaDecaimento = tabelaCorpo.rows[i].cells[0];
+                        const celulaDoseResultante = tabelaCorpo.rows[i].cells[2];
+                        const celulaSubtracao = tabelaCorpo.rows[i].cells[3];
 
-                for (let i = 0; i < quantidadeIntervalos; i++) {
-                    const celulaDecaimento = tabelaCorpo.rows[i].cells[0];
-                    const celulaIntervalo = tabelaCorpo.rows[i].cells[1];
-                    const celulaDoseResultante = tabelaCorpo.rows[i].cells[2];
-                    const celulaSubtracao = tabelaCorpo.rows[i].cells[3]; // Coluna de Subtração
+                        const inputDecaimento = celulaDecaimento.querySelector("input");
 
-                    // Obtenha o valor de decaimento a partir do input na primeira coluna
-                    const inputDecaimento = celulaDecaimento.querySelector('input');
-
-                    if (inputDecaimento) {
-                        const valorDecaimento = parseFloat(inputDecaimento.value);
-                        const intervaloMinutos = parseFloat(celulaIntervalo.textContent);
-                        const perdaTotal = 0.5 ** (intervaloMinutos / meiaVida);
-                        const doseAposDecaimento = valorDecaimento * perdaTotal;
-                        celulaDoseResultante.textContent = doseAposDecaimento.toFixed(2);
-
-                        // Calcular a subtração como 'dose resultante - valor y'
-                        const subtracao = doseAposDecaimento - valorY;
-                        celulaSubtracao.textContent = subtracao.toFixed(2);
-
-                        // Aplicar a formatação de cor com base no valor da subtração
-                        if (subtracao <= 1) {
-                            celulaSubtracao.style.backgroundColor = 'red';
-                        } else {
-                            celulaSubtracao.style.backgroundColor = 'lightgreen';
+                        if (inputDecaimento) {
+                            const doseAposDecaimento = calcularDoseAposDecaimento(inputDecaimento);
+                            celulaDoseResultante.textContent = doseAposDecaimento.toFixed(2);
                         }
                     }
                 }
-            }
 
+                function atualizarTabela() {
+                    const tabelaCorpo = document.getElementById('tabela-dosimetria-corpo');
+                    const quantidadeIntervalos = tabelaCorpo.rows.length;
+                    const meiaVida = 109.77; // minutos
 
-        </script>
+                    // Obtenha o valor de 'y' inserido pelo usuário
+                    const valorY = parseFloat(document.getElementById('valor-y').value);
+
+                    for (let i = 0; i < quantidadeIntervalos; i++) {
+                        const celulaDecaimento = tabelaCorpo.rows[i].cells[0];
+                        const celulaIntervalo = tabelaCorpo.rows[i].cells[1];
+                        const celulaDoseResultante = tabelaCorpo.rows[i].cells[2];
+                        const celulaSubtracao = tabelaCorpo.rows[i].cells[3]; // Coluna de Subtração
+
+                        // Obtenha o valor de decaimento a partir do input na primeira coluna
+                        const inputDecaimento = celulaDecaimento.querySelector('input');
+
+                        if (inputDecaimento) {
+                            const valorDecaimento = parseFloat(inputDecaimento.value);
+                            const intervaloMinutos = parseFloat(celulaIntervalo.textContent);
+                            const perdaTotal = 0.5 ** (intervaloMinutos / meiaVida);
+                            const doseAposDecaimento = valorDecaimento * perdaTotal;
+                            celulaDoseResultante.textContent = doseAposDecaimento.toFixed(2);
+
+                            // Calcular a subtração como 'dose resultante - valor y'
+                            const subtracao = doseAposDecaimento - valorY;
+                            celulaSubtracao.textContent = subtracao.toFixed(2);
+
+                            // Aplicar a formatação de cor com base no valor da subtração
+                            if (subtracao <= 1) {
+                                celulaSubtracao.style.backgroundColor = 'red';
+                            } else {
+                                celulaSubtracao.style.backgroundColor = 'lightgreen';
+                            }
+                        }
+                    }
+                }
+
+            </script>
 </body>
 </html>
